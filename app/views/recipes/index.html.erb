@@ -1,0 +1,11 @@
+<h1 class="d-flex justify-content-center">Recipes</h1>
+
+<% if current_user %>
+  <%= render partial: 'form' %>
+<% end %>
+
+<div id="recipe-list">
+  <% @recipes.each do |recipe| %>
+    <%= render partial: 'recipe', locals: { recipe: recipe } %>
+  <% end %>
+</div>

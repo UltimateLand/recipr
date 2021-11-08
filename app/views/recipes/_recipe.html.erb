@@ -1,0 +1,13 @@
+<div class="card text-dark bg-light border-dark ms-5 me-5 mb-3" id="recipe-<%= recipe.id %>">
+  <div class="card-header">
+    <span class="h5"><%= recipe.dish %></span><span> author: <%= recipe.user.email %></span>
+  </div>
+  <div class="card-body">
+    <p class="card-text"><%= recipe.description %></p>
+    <% if current_user && recipe.user == current_user %>
+      <p class="d-flex justify-content-end">
+        <%= link_to "Delete", recipe_path(recipe), method: :delete, remote: true, class: "btn btn-danger" %>
+      </p>
+    <% end %>
+  </div>
+</div>

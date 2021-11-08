@@ -1,0 +1,20 @@
+<div class="ms-5 me-5 mb-3">
+  <a class="btn btn-primary mb-3" data-bs-toggle="collapse" href="#newRecipe" role="button" aria-expanded="false" aria-controls="newRecipe">
+      Add new recipe
+  </a>
+  <div class="collapse mb-3" id="newRecipe">
+    <%= form_for :recipe, remote: true, html: { id: 'recipe-form' } do |f| %>
+      <div class="form-group mb-3">
+        <%= f.label :dish %>
+        <%= f.text_field :dish, class: "form-control" %>
+      </div>
+      <div class="form-group mb-3">
+        <%= f.label :description %>
+        <%= f.text_area :description, class: "form-control" %>
+      </div>
+      <div class="form-group">
+        <%= f.submit class: "btn btn-primary" %>
+      </div>
+    <% end %>
+  </div>
+</div>
