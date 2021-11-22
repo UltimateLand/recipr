@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class RecipesController < ApplicationController
-  before_action :set_recipe, only: %i[show edit update destroy]
-  # before_action :authenticate_user!, only: %i[create destroy]
+  before_action :set_recipe, only: %i[edit update destroy]
+  before_action :authenticate_user!, only: %i[edit create destroy]
 
   # GET /recipes or /recipes.json
   def index
@@ -11,7 +11,7 @@ class RecipesController < ApplicationController
 
   # POST /recipes or /recipes.json
   def create
-    @recipe = Recipe.new(recipe_params)
+    @recipe = current_user.recipes.build(recipe_params)
 
     respond_to do |format|
       if @recipe.save
@@ -33,11 +33,12 @@ class RecipesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_recipe
-      @recipe = Recipe.find(params[:id])
+      @recipe = current_user.recipes.find_by(id: params[:id])
+      redirect_to(root_path, alert: "This recipe isn't belong to you!") unless @recipe
     end
 
     # Only allow a list of trusted parameters through.
     def recipe_params
-      params.require(:recipe).permit(:dish, :description).merge(user: current_user)
+      params.require(:recipe).permit(:dish, :description)
     end
 end
